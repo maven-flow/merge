@@ -20,7 +20,7 @@ runs:
   - name: Download and configure changelog merge driver
     shell: bash
     run: |
-      mvn dependency:get -Dartifact=com-jardoapps:changelog-merge-driver:0.1.0-SNAPSHOT -DremoteRepositories=https://maven.pkg.github.com/maven-flow/changelog-merge-driver
+      mvn -B dependency:get -Dartifact=com-jardoapps:changelog-merge-driver:0.1.0-SNAPSHOT -DremoteRepositories=https://maven.pkg.github.com/maven-flow/changelog-merge-driver
       git config merge.changelog.driver "~/.m2/repository/com/jardoapps/changelog-merge-driver/0.1.0-SNAPSHOT/changelog-merge-driver-0.1.0-SNAPSHOT-jar-with-dependencies.jar %A %O %B"
       if [ ! -f ".gitattributes" ]; then
         echo "${{ inputs.changelog-file }} merge=changelog" > ".gitattributes"
