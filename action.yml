@@ -1,0 +1,39 @@
+name: "Maven Flow Merge"
+description: "Merges chenges between branchs. Uses a special merge driver for changelogs."
+
+inputs:
+  changelog-file:
+    default: "CHANGELOG.md"
+    required: false
+    type: string
+  source-branch:
+    required: true
+    type: string
+  target-branch:
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+
+  - name: Download and configure changelog merge driver
+    shell: bash
+    run: |
+      mvn dependency:get -Dartifact=com-jardoapps:changelog-merge-driver:0.1.0-SNAPSHOT -DremoteRepositories=https://maven.pkg.github.com/maven-flow/changelog-merge-driver
+      git config merge.changelog.driver "~/.m2/repository/com/jardoapps/changelog-merge-driver/0.1.0-SNAPSHOT/changelog-merge-driver-0.1.0-SNAPSHOT-jar-with-dependencies.jar %A %O %B"
+      if [ ! -f ".gitattributes" ]; then
+        echo "${{ inputs.changelog-file }} merge=changelog" > ".gitattributes"
+      else
+        echo "File .gitattributes already exists. Make sure it contains changelog merge configuration."
+      fi
+
+  - name: Perform Merge
+    shell: bash
+    run: |
+      echo "Merging from branch ${{ inputs.source-branch }} to branch: ${{ inputs.target-branch }}"
+      git config --local user.email "github-actions[bot]@users.noreply.github.com"
+      git config --local user.name "github-actions[bot]"
+      git checkout ${{ inputs.target-branch }}
+      git merge --no-ff --no-edit ${{ inputs.source-branch }}
+      # git push origin ${{ inputs.target-branch }}
