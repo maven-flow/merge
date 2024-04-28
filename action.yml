@@ -21,7 +21,7 @@ runs:
     shell: bash
     run: |
       mvn -B dependency:get -Dartifact=com.jardoapps:changelog-merge-driver:0.1.0-SNAPSHOT -DremoteRepositories=github::::https://maven.pkg.github.com/maven-flow/changelog-merge-driver
-      git config merge.changelog.driver "~/.m2/repository/com/jardoapps/changelog-merge-driver/0.1.0-SNAPSHOT/changelog-merge-driver-0.1.0-SNAPSHOT-jar-with-dependencies.jar %A %O %B"
+      git config merge.changelog.driver "~/.m2/repository/com/jardoapps/changelog-merge-driver/0.1.0/changelog-merge-driver-0.1.0.jar %A %O %B"
       if [ ! -f ".gitattributes" ]; then
         echo "${{ inputs.changelog-file }} merge=changelog" > ".gitattributes"
       else
