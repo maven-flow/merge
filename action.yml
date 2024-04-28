@@ -3,7 +3,11 @@ description: "Merges chenges between branchs. Uses a special merge driver for ch
 
 inputs:
   changelog-file:
-    default: "CHANGELOG.md"
+    default: "**/CHANGELOG.md"
+    required: false
+    type: string
+  pom-file:
+    default: "**/pom.xml"
     required: false
     type: string
   source-branch:
@@ -17,6 +21,16 @@ runs:
   using: "composite"
   steps:
 
+  - name: Configure pom merge driver
+    shell: bash
+    run: |
+      git config merge.pom.driver "${{ github.action_path }}/pom-merge-driver.sh %A %O %B"
+      if [ ! -f ".gitattributes" ]; then
+        echo "${{ inputs.pom-file }} merge=pom" > ".gitattributes"
+      else
+        echo "${{ inputs.pom-file }} merge=pom" >> ".gitattributes"
+      fi
+
   - name: Download and configure changelog merge driver
     shell: bash
     run: |
@@ -25,7 +39,7 @@ runs:
       if [ ! -f ".gitattributes" ]; then
         echo "${{ inputs.changelog-file }} merge=changelog" > ".gitattributes"
       else
-        echo "File .gitattributes already exists. Make sure it contains changelog merge configuration."
+        echo "${{ inputs.changelog-file }} merge=changelog" >> ".gitattributes"
       fi
 
   - name: Perform Merge
