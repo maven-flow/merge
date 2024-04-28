@@ -50,4 +50,4 @@ runs:
       git config --local user.name "github-actions[bot]"
       git checkout ${{ inputs.target-branch }}
       git merge --no-ff --no-edit ${{ inputs.source-branch }}
-      # git push origin ${{ inputs.target-branch }}
+      git push origin ${{ inputs.target-branch }}
