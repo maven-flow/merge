@@ -1,5 +1,5 @@
 name: "Maven Flow Merge"
-description: "Merges chenges between branchs. Uses a special merge driver for changelogs."
+description: "GIT merge with conflict resolution for changelogs and pom.xml files."
 
 inputs:
   changelog-file:
