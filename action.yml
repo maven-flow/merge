@@ -31,11 +31,10 @@ runs:
         echo "${{ inputs.pom-file }} merge=pom" >> ".gitattributes"
       fi
 
-  - name: Download and configure changelog merge driver
+  - name: Configure changelog merge driver
     shell: bash
     run: |
-      mvn -B dependency:get -Dartifact=com.jardoapps:changelog-merge-driver:0.1.0 -DremoteRepositories=github::::https://maven.pkg.github.com/maven-flow/changelog-merge-driver
-      git config merge.changelog.driver "java -jar ~/.m2/repository/com/jardoapps/changelog-merge-driver/0.1.0/changelog-merge-driver-0.1.0.jar %A %O %B"
+      git config merge.changelog.driver "java -jar ${{ github.action_path }}/changelog-merge-driver.jar %A %O %B"
       if [ ! -f ".gitattributes" ]; then
         echo "${{ inputs.changelog-file }} merge=changelog" > ".gitattributes"
       else
