@@ -1,12 +1,12 @@
 # Maven Flow Merge
 
-A GitHub action for merging Maven projects developed according to [Maven Flow](https://nvie.com/posts/a-successful-git-branching-model/). It's aim is to automatically resolve GIT merge conflicts in changelog files and Maven project files (`pom.xml`) which arise when using this approach.
+A GitHub action for merging Maven projects developed according to [GIT Flow](https://nvie.com/posts/a-successful-git-branching-model/). It's aim is to automatically resolve GIT merge conflicts in changelog files and Maven project files (`pom.xml`) which arise when using this approach.
 
 ## The Problem With Merging Changelogs And POM Files
 
 Let's imagine a model situation:
 
-- You have a Maven project which uses Maven Flow.
+- You have a Maven project which uses GIT Flow.
 
 - The project has a `develop` branch, which contains version `1.0.0-SNAPSHOT`.
 
