@@ -120,7 +120,7 @@ jobs:
 
 ### `pom-file`
 
-**Optional.** The name of your Maven project files. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files. In multi-module Maven projects it is recommended to use wildcards to match project files of the parent project and all of it's submodules.
+**Optional.** The name of your Maven project files. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files. In multi-module Maven projects it is recommended to use wildcards to match project files of the parent project and all of it's sub-modules.
 
 **Default value:** `**/pom.xml`
 
