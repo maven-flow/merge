@@ -131,3 +131,19 @@ jobs:
 ### `target-branch`
 
 **Required.** The name of the target branch - the branch INTO which the changes will be merged.
+
+### Disabling Custom Merge Drivers
+
+If you want to disable custom merge behavior for changelogs or POM files (or both) and perform a standard GIT merge instead, simply set the value of attribute `changelog-file` or `pom-file` to something that will not match any existing file in your repository.
+
+For example:
+
+```yaml
+    - name: Merge into develop
+      uses: maven-flow/merge@v1
+      with:
+        changelog-file: 'match-nothing.txt'    # turn off custom merging for changelogs
+        pom-file: 'match-nothing.txt'          # turn off custom merging for POM files
+        source-branch: ${{ github.ref_name }}
+        target-branch: 'develop'
+```
