@@ -132,7 +132,7 @@ jobs:
 
 **Required.** The name of the target branch - the branch INTO which the changes will be merged.
 
-### Disabling Custom Merge Drivers
+## Disabling Custom Merge Drivers
 
 If you want to disable custom merge behavior for changelogs or POM files (or both) and perform a standard GIT merge instead, simply set the value of attribute `changelog-file` or `pom-file` to something that will not match any existing file in your repository.
 
