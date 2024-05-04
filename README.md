@@ -116,13 +116,13 @@ jobs:
 
 **Optional.** The name of your changelog file. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files.
 
-**Defaulet value:** `**/CHANGELOG.md`
+**Default value:** `**/CHANGELOG.md`
 
 ### `pom-file`
 
 **Optional.** The name of your Maven project files. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files. In multi-module Maven projects it is recommended to use wildcards to match project files of the parent project and all of it's submodules.
 
-**Defaulet value:** `**/pom.xml`
+**Default value:** `**/pom.xml`
 
 ### `source-branch`
 
