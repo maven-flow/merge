@@ -80,16 +80,16 @@ on: push
 jobs:
 
   merge-to-develop:
-    if: startsWith(github.ref, 'refs/heads/release')   # only run merge on release branches
+    if: startsWith(github.ref, 'refs/heads/release') # only run merge on release branches
     runs-on: ubuntu-latest
     steps:
 
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0                                 # the full git history needs to be checked out
-        token: ${{ github.token }}                     # token needed to enable GIT push after merge
+        fetch-depth: 0                  # the full GIT history needs to be checked out
+        token: ${{ github.token }}      # token needed to enable GIT push after merge
 
-    - name: Set up JDK 17                              # Java 17 is needed to run the changelog merge driver
+    - name: Set up JDK 17               # Java 17 is needed to run the changelog merge driver
       uses: actions/setup-java@v3
       with:
         java-version: '17'
