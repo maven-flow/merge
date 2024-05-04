@@ -109,3 +109,25 @@ jobs:
         source-branch: ${{ github.ref_name }}
         target-branch: 'develop'
 ```
+
+## Inputs
+
+### `changelog-file`
+
+**Optional.** The name of your changelog file. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files.
+
+**Defaulet value:** `**/CHANGELOG.md`
+
+### `pom-file`
+
+**Optional.** The name of your Maven project files. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files. In multi-module Maven projects it is recommended to use wildcards to match project files of the parent project and all of it's submodules.
+
+**Defaulet value:** `**/pom.xml`
+
+### `source-branch`
+
+**Required.** The name of the source branch - the branch FROM which the changes will be merged.
+
+### `target-branch`
+
+**Required.** The name of the target branch - the branch INTO which the changes will be merged.
