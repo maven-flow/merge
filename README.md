@@ -48,7 +48,15 @@ This merge driver works also for multi-module Maven projects, even in cases when
 
 ## Usage
 
-Minimum configuration (merge from current branch into `develop`):
+Preconditions:
+
+- The GIT repository needs to be checked-out with full history, otherwise you will get an "unrelated histories" error message upon merge. To checkout the full history, call action `actions/checkout` with attribute `fetch-depth: 0`. See example workflow below.
+
+- To merge POM files, the merge job needs run on a Linux-based runner (the pom merge driver is a bash script).
+
+- To merge changelogs, the merge job needs to set up Java 17 or later (the changelog merge driver runs on Java).
+
+Minimum action configuration (merge from current branch into `develop`):
 
 ```yaml
     - name: Merge into develop
@@ -58,7 +66,7 @@ Minimum configuration (merge from current branch into `develop`):
         target-branch: 'develop'
 ```
 
-Full configuration:
+Full action configuration:
 
 ```yaml
     - name: Merge into develop
