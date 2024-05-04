@@ -99,5 +99,5 @@ jobs:
       uses: maven-flow/merge@v1
       with:
         source-branch: ${{ github.ref_name }}
-        target-branch: ${{ inputs.upstreamBranch }}
+        target-branch: 'develop'
 ```
