@@ -1,6 +1,10 @@
 name: "Maven Flow Merge"
 description: "GIT merge with conflict resolution for changelogs and pom.xml files."
 
+branding:
+  icon: 'git-merge'
+  color: 'blue'
+
 inputs:
   changelog-file:
     default: "**/CHANGELOG.md"
