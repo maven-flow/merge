@@ -1,6 +1,6 @@
 # Maven Flow Merge
 
-A GitHub action for merging Maven projects developed according to [Maven Flow](https://nvie.com/posts/a-successful-git-branching-model/). It's aim is to automatically resolve GIT merge conflicts in changelog files and Maven project files (`pom.xml`) which arrise when using this approach.
+A GitHub action for merging Maven projects developed according to [Maven Flow](https://nvie.com/posts/a-successful-git-branching-model/). It's aim is to automatically resolve GIT merge conflicts in changelog files and Maven project files (`pom.xml`) which arise when using this approach.
 
 ## The Problem With Merging Changelogs And POM Files
 
@@ -45,3 +45,59 @@ It is essentially the same as in this [stackoverflow answer](https://stackoverfl
 NOTE: There can still be conflicts in other parts of the `pom.xml` file.
 
 This merge driver works also for multi-module Maven projects, even in cases when the project version is inherited from the parent project version.
+
+## Usage
+
+Minimum configuration (merge from current branch into `develop`):
+
+```yaml
+    - name: Merge into develop
+      uses: maven-flow/merge@v1
+      with:
+        source-branch: ${{ github.ref_name }}
+        target-branch: 'develop'
+```
+
+Full configuration:
+
+```yaml
+    - name: Merge into develop
+      uses: maven-flow/merge@v1
+      with:
+        changelog-file: '**/CHANGELOG.md'
+        pom-file: '**/pom.xml'
+        source-branch: ${{ github.ref_name }}
+        target-branch: 'develop'
+```
+
+Example merge workflow:
+
+```yaml
+name: Merge to develop
+
+on: push
+
+jobs:
+
+  merge-to-develop:
+    if: startsWith(github.ref, 'refs/heads/release')   # only run merge on release branches
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0                                 # the full git history needs to be checked out
+        token: ${{ github.token }}                     # token needed to enable GIT push after merge
+
+    - name: Set up JDK 17                              # Java 17 is needed to run the changelog merge driver
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Merge to develop branch
+      uses: maven-flow/merge@v1
+      with:
+        source-branch: ${{ github.ref_name }}
+        target-branch: ${{ inputs.upstreamBranch }}
+```
