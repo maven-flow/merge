@@ -52,6 +52,9 @@ Preconditions:
 
 - The GIT repository needs to be checked-out with full history, otherwise you will get an "unrelated histories" error message upon merge. To checkout the full history, call action `actions/checkout` with attribute `fetch-depth: 0`. See example workflow below.
 
+- The `GITHUB_TOKEN` (which is used by default in `actions/checkout`) needs to have write permission for scope `contents`, otherwise the merge cannot be pushed.
+  See [GitHub documentation](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token) and example workflow below.
+
 - To merge POM files, the merge job needs run on a Linux-based runner (the pom merge driver is a bash script).
 
 - To merge changelogs, the merge job needs to set up Java 17 or later (the changelog merge driver runs on Java).
@@ -90,12 +93,13 @@ jobs:
   merge-to-develop:
     if: startsWith(github.ref, 'refs/heads/release') # only run merge on release branches
     runs-on: ubuntu-latest
+    permissions:
+      contents: write                   # write permission needed to enable GIT push after merge
     steps:
 
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0                  # the full GIT history needs to be checked out
-        token: ${{ github.token }}      # token needed to enable GIT push after merge
 
     - name: Set up JDK 17               # Java 17 is needed to run the changelog merge driver
       uses: actions/setup-java@v3
