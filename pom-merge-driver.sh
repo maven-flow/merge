@@ -51,6 +51,8 @@ setVersion() {
 
 # ----------------------- start -----------------------------
 
+echo "Running POM merge driver"
+
 ours=$1
 base=$2
 theirs=$3
