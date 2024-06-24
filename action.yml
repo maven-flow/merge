@@ -10,6 +10,9 @@ inputs:
     default: "**/CHANGELOG.md"
     required: false
     type: string
+  changelog-rebase:
+    required: true
+    type: boolean
   pom-file:
     default: "**/pom.xml"
     required: false
@@ -38,7 +41,11 @@ runs:
   - name: Configure changelog merge driver
     shell: bash
     run: |
-      git config merge.changelog.driver "java -jar ${{ github.action_path }}/changelog-merge-driver.jar %A %O %B"
+      params=""
+      if [ "${{ inputs.changelog-rebase }}" = "true" ]; then
+        params="--rebase"
+      fi
+      git config merge.changelog.driver "java -jar ${{ github.action_path }}/changelog-merge-driver.jar %A %O %B ${params}"
       if [ ! -f ".gitattributes" ]; then
         echo "${{ inputs.changelog-file }} merge=changelog" > ".gitattributes"
       else
