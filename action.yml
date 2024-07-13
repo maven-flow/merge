@@ -11,7 +11,8 @@ inputs:
     required: false
     type: string
   changelog-rebase:
-    required: true
+    default: false
+    required: false
     type: boolean
   pom-file:
     default: "**/pom.xml"
