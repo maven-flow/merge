@@ -98,12 +98,12 @@ jobs:
       contents: write                   # write permission needed to enable GIT push after merge
     steps:
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0                  # the full GIT history needs to be checked out
 
-    - name: Set up JDK 17               # Java 17 is needed to run the changelog merge driver
-      uses: actions/setup-java@v3
+    - name: Set up JDK 17               # Java >= 17 is needed to run the changelog merge driver
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
