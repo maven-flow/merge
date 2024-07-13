@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Attribute `changelog-rebase` which activates [changelog rebase mode](https://github.com/maven-flow/changelog-merge-driver/blob/main/README.md#how-it-works-rebase-mode).
+- Attribute `changelog-rebase` which activates [changelog rebase mode](https://github.com/maven-flow/changelog-merge-driver/tree/main?tab=readme-ov-file#how-it-works-rebase-mode).
 
 ### Changed
 
