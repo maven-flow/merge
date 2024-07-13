@@ -76,6 +76,7 @@ Full action configuration:
       uses: maven-flow/merge@v1
       with:
         changelog-file: '**/CHANGELOG.md'
+        changelog-rebase: false
         pom-file: '**/pom.xml'
         source-branch: ${{ github.ref_name }}
         target-branch: 'develop'
@@ -121,6 +122,12 @@ jobs:
 **Optional.** The name of your changelog file. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files.
 
 **Default value:** `**/CHANGELOG.md`
+
+### `changelog-rebase`
+
+**Optional.** Whether or not the changelog merge driver should run in [rebase mode](https://github.com/maven-flow/changelog-merge-driver/tree/main?tab=readme-ov-file#how-it-works-rebase-mode). Recommended setting is `false` for merging feature branches into `develop`, and `true` when updating feature branches with latest changes from `develop`.
+
+**Default value:** `false`
 
 ### `pom-file`
 
