@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - UNRELEASED
 
+### Fixed
 
+- Readme link to merge driver description.
 
 ## [1.2.0] - 2024-07-17
 

@@ -32,7 +32,7 @@ This action uses a special [GIT merge driver for changelogs](https://github.com/
 
 - The changelog file needs to follow the structure defined in [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-- A comprehensive description of how the changelog files are actually merged can be found in the [merge driver description](https://github.com/maven-flow/changelog-merge-driver?tab=readme-ov-file#how-it-works).
+- A comprehensive description of how the changelog files are actually merged can be found in the [merge driver description](https://github.com/maven-flow/changelog-merge-driver?tab=readme-ov-file#how-it-works-normal-mode).
 
 ## How POM Files Are Merged
 
