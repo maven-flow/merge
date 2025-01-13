@@ -78,6 +78,7 @@ Full action configuration:
         changelog-file: '**/CHANGELOG.md'
         changelog-rebase: false
         pom-file: '**/pom.xml'
+        push-changes: true
         source-branch: ${{ github.ref_name }}
         target-branch: 'develop'
 ```
@@ -134,6 +135,12 @@ jobs:
 **Optional.** The name of your Maven project files. It may contain wildcard characters - the same format as in `.gitignore` or `.gitattributes` files. In multi-module Maven projects it is recommended to use wildcards to match project files of the parent project and all of it's sub-modules.
 
 **Default value:** `**/pom.xml`
+
+### `push-changes`
+
+**Optional.** Whether the merge should be pushed.
+
+**Default value:** `true`
 
 ### `source-branch`
 
