@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Attribute `push-changes` (optional and `false` by default to preserve behavior from previous versions).
+- Attribute `push-changes` (optional and `true` by default to preserve behavior from previous versions).
 
 ### Fixed
 
