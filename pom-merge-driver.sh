@@ -46,6 +46,11 @@ setVersion() {
 
 	done < $file
 
+	# do not add new line to the end of file if the original file didn't have it
+	if [[ ! $(tail -c1 "$file") == $'\n' ]]; then
+		truncate -s -1 "$tempFile"
+	fi
+
 	mv $tempFile $file
 }
 
