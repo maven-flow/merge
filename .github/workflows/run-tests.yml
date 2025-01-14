@@ -13,6 +13,8 @@ jobs:
 
   run-tests:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
     - run: |
         gh workflow run mf-merge-from-develop.yml --repo maven-flow/merge-tests --ref feature/add-cranberry -f action-ref=${{ github.ref_name }}
