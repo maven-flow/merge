@@ -23,7 +23,7 @@ setVersion() {
 	insideDependency=false
 
 	# Loop through each line in the input file
-	while IFS= read -r line; do
+	while IFS= read -r line || [[ -n $line ]]; do
 
 		if [[ $line == *"<dependency>"* ]]; then
 			insideDependency=true
