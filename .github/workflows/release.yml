@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      major-version:
+        required: true
+        type: integer
+      minor-version:
+        required: true
+        type: integer
+      bugfix-version:
+        required: true
+        type: integer
+      changelog-file:
+        required: true
+        type: string
+        default: CHANGELOG.md
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - name: Configure Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Update Version Date in Changelog
+      run: |
+        current_date=$(date "+%Y-%m-%d")
+        sed -i "s/UNRELEASED/$current_date/g" "${{ inputs.changelog-file  }}"
+        git commit -a -m "Updated version date in changelog."
+        git push
+
+    - name: Remove Old Major Version Tag
+      run: git push --delete origin v${{ inputs.major-version }} || true
+
+    - name: Create Tags
+      run: |
+        git tag v${{ inputs.major-version }}.${{ inputs.minor-version }}.${{ inputs.bugfix-version }}
+        git tag v${{ inputs.major-version }}
+        git push --tags
+
+    - name: Create Release
+      run: |
+        gh release create v${{ inputs.major-version }}.${{ inputs.minor-version }}.${{ inputs.bugfix-version }} \
+        --title "${{ inputs.major-version }}.${{ inputs.minor-version }}.${{ inputs.bugfix-version }}" \
+        --notes "See [changelog](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)."
+      env:
+        GH_TOKEN: ${{ github.token }}
+
+    - name: Add Next Version to Changelog
+      run: |
+        nextMinorVersion=$(( ${{ inputs.minor-version }} + 1 ))
+        nextVersionText="## [${{ inputs.major-version }}.${nextMinorVersion}.0] - UNRELEASED
+        
+        
+        "
+        tempFile=$(mktemp)
+        head -n 7 "${{ inputs.changelog-file  }}" > "$tempFile"
+        echo "$nextVersionText" >> "$tempFile"
+        tail -n +8 "${{ inputs.changelog-file  }}" >> "$tempFile"
+        mv "$tempFile" "${{ inputs.changelog-file  }}"
+        git commit -a -m "Added next version to changelog."
+        git push
