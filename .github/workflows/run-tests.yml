@@ -26,7 +26,7 @@ jobs:
 
     - name: Run external tests
       run: |
-        gh workflow run mf-merge-from-develop.yml --repo maven-flow/merge-tests --ref feature/add-cranberry -f action-ref=${{ github.ref_name }}
-        gh workflow run mf-merge-from-release.yml --repo maven-flow/merge-tests --ref develop -f action-ref=${{ github.ref_name }} -f release-branch=origin/release/1.0
+        gh workflow run mf-merge-from-develop.yml --repo {{ github.repository }}-tests --ref feature/add-cranberry -f action-ref=${{ github.ref_name }}
+        gh workflow run mf-merge-from-release.yml --repo {{ github.repository }}-tests --ref develop -f action-ref=${{ github.ref_name }} -f release-branch=origin/release/1.0
       env:
         GH_TOKEN: ${{ secrets.WORKFLOW_RUN_TOKEN }}
