@@ -46,8 +46,8 @@ setVersion() {
 
 	done < $file
 
-	# do not add new line to the end of file if the original file didn't have it
-	if [[ ! $(tail -c1 "$file") == $'\n' ]]; then
+	# remove new line from the end of file if the original file didn't have it
+	if [[ $(tail -n1 "$file" | wc -l) -eq 0 ]]; then
 		truncate -s -1 "$tempFile"
 	fi
 
