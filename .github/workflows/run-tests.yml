@@ -14,7 +14,18 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     steps:
-    - run: |
+
+    - uses: actions/checkout@v4
+
+    - name: Merging POMs ending with new line
+      run: ./tests/pom-merge-driver/merge-poms-ending-with-new-line/test.sh
+
+    - name: Merging POMs ending without new line
+      if: always()
+      run: ./tests/pom-merge-driver/merge-poms-ending-without-new-line/test.sh
+
+    - name: Run external tests
+      run: |
         gh workflow run mf-merge-from-develop.yml --repo maven-flow/merge-tests --ref feature/add-cranberry -f action-ref=${{ github.ref_name }}
         gh workflow run mf-merge-from-release.yml --repo maven-flow/merge-tests --ref develop -f action-ref=${{ github.ref_name }} -f release-branch=origin/release/1.0
       env:
